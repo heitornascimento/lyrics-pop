@@ -1,0 +1,26 @@
+
+
+<h1><%= @quest.question %></h1>
+
+<div>
+  <% @quest.options.split(';').each_with_index do |opt, idx| %>
+    <label>
+      <%= radio_button_tag :selected_opt, idx %> <%= opt %>
+    </label>
+  <% end %>
+  <%= button_tag "Answer", type: "button", id: 'ans_btn' %>
+
+  <h2 id="correct" style="display:none">CORRECT!</h2>
+  <h2 id="wrong" style="display:none">not this time! :(</h2>
+</div>
+
+<script lang="text/javascript">
+  var answer_idx = parseInt(<%= @quest.answer_idx %>)
+  $('#ans_btn').on('click', function() {
+    let user_ans = $('input[type=radio]:checked').val();
+    if(user_ans && user_ans == answer_idx) {
+      $('#correct').css('display:block');
+      console.log('bla')
+    }
+  })
+</script>
